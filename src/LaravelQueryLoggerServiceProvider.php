@@ -8,10 +8,10 @@ use Illuminate\Support\ServiceProvider;
 use Wimski\LaravelQueryLogger\Factories\LogChannelFactory;
 use Wimski\LaravelQueryLogger\Factories\RuleFactory;
 use Wimski\LaravelQueryLogger\Providers\Contracts\Factories\LogChannelFactoryInterface;
+use Wimski\LaravelQueryLogger\Providers\Contracts\Factories\RuleFactoryInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLogFormatterInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerManagerInterface;
-use Wimski\LaravelQueryLogger\Providers\Contracts\Factories\RuleFactoryInterface;
 
 class LaravelQueryLoggerServiceProvider extends ServiceProvider
 {
