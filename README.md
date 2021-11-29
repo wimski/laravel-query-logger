@@ -1,6 +1,12 @@
+# :warning: THIS PROJECT IS CURRENTLY A WIP AND CANNOT BE INSTALLED THROUGH COMPOSER! :warning:
+
 # Laravel Query Logger
 
 A Laravel package to log database queries for local debugging.
+
+* [Installation](#installation)
+* [Configuration](#configuration)
+* [Customize Rules](#customize-rules)
 
 ## Installation
 
@@ -17,13 +23,30 @@ The package is loaded using [Package Discovery](https://laravel.com/docs/8.x/pac
 Configuration is done using the following environment variables:
 
 ### `QUERY_LOGGER_ENABLED`
+Default: `false`
+
 ### `QUERY_LOGGER_CLEAR_ON_EVERY_REQUEST`
+Default: `false`
+
 ### `QUERY_LOGGER_MINIMUM_DURATION`
+Default: `0`
+
 ### `QUERY_LOGGER_MATCH_PATTERN`
+Default: `/^(select|insert|update|delete)((?!migration).)*/i`
+
 ### `QUERY_LOGGER_CHANNEL`
+Default: `query`
+
 ### `QUERY_LOGGER_DRIVER`
+Default: `single`
+
 ### `QUERY_LOGGER_LEVEL`
+Default: `debug`
+
 ### `QUERY_LOGGER_PATH`
+Default: `logs/query.log`
+
+## Customize Rules
 
 ## Manual Installation
 
