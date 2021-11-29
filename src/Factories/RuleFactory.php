@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Wimski\LaravelQueryLogger;
+namespace Wimski\LaravelQueryLogger\Factories;
 
 use Illuminate\Contracts\Container\Container;
-use Wimski\LaravelQueryLogger\Providers\Contracts\RuleFactoryInterface;
+use Wimski\LaravelQueryLogger\Providers\Contracts\Factories\RuleFactoryInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\RuleInterface;
 
 class RuleFactory implements RuleFactoryInterface

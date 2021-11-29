@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Wimski\LaravelQueryLogger;
 
 use Illuminate\Support\ServiceProvider;
+use Wimski\LaravelQueryLogger\Factories\LogChannelFactory;
+use Wimski\LaravelQueryLogger\Factories\RuleFactory;
+use Wimski\LaravelQueryLogger\Providers\Contracts\Factories\LogChannelFactoryInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLogFormatterInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerManagerInterface;
-use Wimski\LaravelQueryLogger\Providers\Contracts\RuleFactoryInterface;
+use Wimski\LaravelQueryLogger\Providers\Contracts\Factories\RuleFactoryInterface;
 
 class LaravelQueryLoggerServiceProvider extends ServiceProvider
 {
@@ -25,6 +28,7 @@ class LaravelQueryLoggerServiceProvider extends ServiceProvider
 
         $this->createQueryLogChannelConfiguration();
 
+        $this->app->singleton(LogChannelFactoryInterface::class, LogChannelFactory::class);
         $this->app->singleton(QueryLogFormatterInterface::class, QueryLogFormatter::class);
         $this->app->singleton(QueryLoggerInterface::class, QueryLogger::class);
         $this->app->singleton(QueryLoggerManagerInterface::class, QueryLoggerManager::class);

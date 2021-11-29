@@ -6,29 +6,28 @@ namespace Wimski\LaravelQueryLogger;
 
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Database\Events\QueryExecuted;
-use Illuminate\Log\LogManager;
-use Psr\Log\LoggerInterface;
+use Wimski\LaravelQueryLogger\Providers\Contracts\Factories\LogChannelFactoryInterface;
+use Wimski\LaravelQueryLogger\Providers\Contracts\Factories\RuleFactoryInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLogFormatterInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerInterface;
-use Wimski\LaravelQueryLogger\Providers\Contracts\RuleFactoryInterface;
 
 class QueryLogger implements QueryLoggerInterface
 {
     protected Config $config;
-    protected LoggerInterface $log;
-    protected QueryLogFormatterInterface $queryLogFormatter;
     protected RuleFactoryInterface $ruleFactory;
+    protected LogChannelFactoryInterface $logChannelFactory;
+    protected QueryLogFormatterInterface $queryLogFormatter;
 
     public function __construct(
         Config $config,
-        LogManager $logManager,
-        QueryLogFormatterInterface $queryLogFormatter,
-        RuleFactoryInterface $ruleFactory
+        RuleFactoryInterface $ruleFactory,
+        LogChannelFactoryInterface $logChannelFactory,
+        QueryLogFormatterInterface $queryLogFormatter
     ) {
         $this->config            = $config;
-        $this->log               = $logManager->channel($config->get('query-logger.channel'));
-        $this->queryLogFormatter = $queryLogFormatter;
         $this->ruleFactory       = $ruleFactory;
+        $this->logChannelFactory = $logChannelFactory;
+        $this->queryLogFormatter = $queryLogFormatter;
     }
 
     public function log(QueryExecuted $query): void
@@ -37,7 +36,7 @@ class QueryLogger implements QueryLoggerInterface
             return;
         }
 
-        $this->log->info(
+        $this->logChannelFactory->make()->info(
             $this->queryLogFormatter->format($query),
         );
     }
