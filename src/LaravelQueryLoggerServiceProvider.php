@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLogFormatterInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerManagerInterface;
+use Wimski\LaravelQueryLogger\Providers\Contracts\RuleFactoryInterface;
 
 class LaravelQueryLoggerServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ class LaravelQueryLoggerServiceProvider extends ServiceProvider
         $this->app->singleton(QueryLogFormatterInterface::class, QueryLogFormatter::class);
         $this->app->singleton(QueryLoggerInterface::class, QueryLogger::class);
         $this->app->singleton(QueryLoggerManagerInterface::class, QueryLoggerManager::class);
+        $this->app->singleton(RuleFactoryInterface::class, RuleFactory::class);
     }
 
     public function boot(): void

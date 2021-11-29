@@ -10,18 +10,25 @@ use Illuminate\Log\LogManager;
 use Psr\Log\LoggerInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLogFormatterInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerInterface;
+use Wimski\LaravelQueryLogger\Providers\Contracts\RuleFactoryInterface;
 
 class QueryLogger implements QueryLoggerInterface
 {
     protected Config $config;
     protected LoggerInterface $log;
     protected QueryLogFormatterInterface $queryLogFormatter;
+    protected RuleFactoryInterface $ruleFactory;
 
-    public function __construct(Config $config, LogManager $logManager, QueryLogFormatterInterface $queryLogFormatter)
-    {
+    public function __construct(
+        Config $config,
+        LogManager $logManager,
+        QueryLogFormatterInterface $queryLogFormatter,
+        RuleFactoryInterface $ruleFactory
+    ) {
         $this->config            = $config;
         $this->log               = $logManager->channel($config->get('query-logger.channel'));
         $this->queryLogFormatter = $queryLogFormatter;
+        $this->ruleFactory       = $ruleFactory;
     }
 
     public function log(QueryExecuted $query): void
@@ -37,28 +44,16 @@ class QueryLogger implements QueryLoggerInterface
 
     protected function queryShouldBeLogged(QueryExecuted $query): bool
     {
-        if (! $this->queryExceedsMinimumDuration($query)) {
-            return false;
-        }
+        $ruleClasses = $this->config->get('query-logger.rules');
 
-        if (! $this->queryMatchesPattern($query)) {
-            return false;
+        foreach ($ruleClasses as $ruleClass) {
+            $rule = $this->ruleFactory->make($ruleClass);
+
+            if (! $rule->passes($query)) {
+                return false;
+            }
         }
 
         return true;
-    }
-
-    protected function queryExceedsMinimumDuration(QueryExecuted $query): bool
-    {
-        $minimumDuration = (int) $this->config->get('query-logger.minimum_duration');
-
-        return $query->time >= $minimumDuration * 1000;
-    }
-
-    protected function queryMatchesPattern(QueryExecuted $query): bool
-    {
-        $pattern = $this->config->get('query-logger.match_pattern');
-
-        return preg_match($pattern, $query->sql) === 1;
     }
 }

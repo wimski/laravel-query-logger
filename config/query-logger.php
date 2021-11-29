@@ -9,4 +9,8 @@ return [
     'driver'                 => env('QUERY_LOGGER_DRIVER', 'single'),
     'level'                  => env('QUERY_LOGGER_LEVEL', 'debug'),
     'path'                   => env('QUERY_LOGGER_PATH', 'logs/query.log'),
+    'rules'                  => [
+        Wimski\LaravelQueryLogger\Rules\ExceedsDurationRule::class,
+        Wimski\LaravelQueryLogger\Rules\MatchesPatternRule::class,
+    ],
 ];
