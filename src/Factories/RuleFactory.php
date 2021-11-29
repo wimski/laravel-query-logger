@@ -6,7 +6,7 @@ namespace Wimski\LaravelQueryLogger\Factories;
 
 use Illuminate\Contracts\Container\Container;
 use Wimski\LaravelQueryLogger\Providers\Contracts\Factories\RuleFactoryInterface;
-use Wimski\LaravelQueryLogger\Providers\Contracts\RuleInterface;
+use Wimski\LaravelQueryLogger\Providers\Contracts\Rules\RuleInterface;
 
 class RuleFactory implements RuleFactoryInterface
 {

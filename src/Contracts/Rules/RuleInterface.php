@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Wimski\LaravelQueryLogger\Providers\Contracts;
+namespace Wimski\LaravelQueryLogger\Providers\Contracts\Rules;
 
 use Illuminate\Database\Events\QueryExecuted;
 
