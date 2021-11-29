@@ -10,7 +10,7 @@ return [
     'level'                  => env('QUERY_LOGGER_LEVEL', 'debug'),
     'path'                   => env('QUERY_LOGGER_PATH', 'logs/query.log'),
     'rules'                  => [
-        Wimski\LaravelQueryLogger\Rules\ExceedsDurationRule::class,
+        Wimski\LaravelQueryLogger\Rules\MinimumDurationRule::class,
         Wimski\LaravelQueryLogger\Rules\MatchesPatternRule::class,
     ],
 ];

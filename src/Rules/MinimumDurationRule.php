@@ -7,7 +7,7 @@ namespace Wimski\LaravelQueryLogger\Rules;
 
 use Illuminate\Database\Events\QueryExecuted;
 
-class ExceedsDurationRule extends AbstractRule
+class MinimumDurationRule extends AbstractRule
 {
     public function passes(QueryExecuted $query): bool
     {
