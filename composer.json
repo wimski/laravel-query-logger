@@ -27,7 +27,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Wimski\\LaravelQueryLogger\\LaravelQueryLoggerServiceProvider"
+              "Wimski\\LaravelQueryLogger\\QueryLoggerServiceProvider"
             ]
         }
     },

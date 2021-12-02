@@ -6,7 +6,7 @@ namespace Wimski\LaravelQueryLogger\Tests\Integration;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase;
-use Wimski\LaravelQueryLogger\LaravelQueryLoggerServiceProvider;
+use Wimski\LaravelQueryLogger\QueryLoggerServiceProvider;
 
 abstract class AbstractIntegrationTest extends TestCase
 {
@@ -15,7 +15,7 @@ abstract class AbstractIntegrationTest extends TestCase
     protected function getPackageProviders($app): array
     {
         return [
-            LaravelQueryLoggerServiceProvider::class,
+            QueryLoggerServiceProvider::class,
         ];
     }
 

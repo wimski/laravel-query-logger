@@ -13,7 +13,7 @@ use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLogFormatterInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerInterface;
 use Wimski\LaravelQueryLogger\Providers\Contracts\QueryLoggerManagerInterface;
 
-class LaravelQueryLoggerServiceProvider extends ServiceProvider
+class QueryLoggerServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
@@ -51,11 +51,13 @@ class LaravelQueryLoggerServiceProvider extends ServiceProvider
             return;
         }
 
-        $channels[config('query-logger.channel')] = [
-            'driver' => config('query-logger.driver'),
-            'level'  => config('query-logger.level'),
-            'path'   => storage_path(config('query-logger.path')),
-        ];
+        $channelName = config('query-logger.channel_name');
+
+        if (array_key_exists($channelName, $channels)) {
+            return;
+        }
+
+        $channels[$channelName] = config('query-logger.channel_config');
 
         config('logging.channels', $channels);
     }
